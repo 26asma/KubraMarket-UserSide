@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 27%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 27%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 27%;
+    
+    --primary: 328 42% 30%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 0 0% 27%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    
+    --accent: 328 42% 93%;
+    --accent-foreground: 328 42% 30%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 328 42% 30%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 90%;
+    
+    --card: 0 0% 15%;
+    --card-foreground: 0 0% 90%;
+    
+    --popover: 0 0% 15%;
+    --popover-foreground: 0 0% 90%;
+    
+    --primary: 328 42% 30%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 0 0% 27%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+    
+    --accent: 328 42% 20%;
+    --accent-foreground: 0 0% 90%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 328 42% 30%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-roboto antialiased bg-background text-foreground;
+  }
+}
+
+/* Custom font families */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+.font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Custom colors */
+.bg-primary {
+  background-color: #6b2d56;
+}
+
+.text-primary {
+  color: #6b2d56;
+}
+
+.bg-secondary {
+  background-color: #444444;
+}
+
+.text-secondary {
+  color: #444444;
+}
+
+.bg-light {
+  background-color: #f8f4f7;
+}
+
+.text-light {
+  color: #f8f4f7;
+}
+
+.hover\:bg-primary:hover {
+  background-color: #6b2d56;
+}
+
+.hover\:text-primary:hover {
+  color: #6b2d56;
+}
+
+.hover\:bg-light:hover {
+  background-color: #f8f4f7;
+}
+
+.hover\:text-light:hover {
+  color: #f8f4f7;
+}
+
+/* Cart overlay and Mobile menu */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Checkout Button */
+.checkout-btn {
+  background-color: #6b2d56 !important;
+  color: white !important;
+  font-weight: 700 !important;
+  padding: 1rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(107, 45, 86, 0.25) !important;
+  text-align: center !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+}
+
+.checkout-btn:hover {
+  background-color: #5a2548 !important;
+  box-shadow: 0 6px 16px rgba(107, 45, 86, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
