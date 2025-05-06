@@ -120,7 +120,7 @@ app.use((req, res, next) => {
     await setupVite(app, server);
   } else {
     // Use import.meta.url to get the directory name
-    const buildPath = path.join(__dirname, "../client/dist/public");
+    const buildPath = path.join(__dirname, "../client/dist");
 
     // Serve static files (CSS, JS, images, etc.)
     app.use(express.static(buildPath));
