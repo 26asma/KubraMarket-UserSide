@@ -120,7 +120,7 @@ app.use((req, res, next) => {
     await setupVite(app, server);
   } else {
     // Use import.meta.url to get the directory name
-    const buildPath = path.join(__dirname, "../client/build");
+    const buildPath = path.join(__dirname, "../client/dist");
 
     // Serve static files (CSS, JS, images, etc.)
     app.use(express.static(buildPath));
@@ -131,7 +131,7 @@ app.use((req, res, next) => {
     });
   }
 
-  const port = 3000;
+  const port = process.env.PORT || 3000;
   server.listen({ port, host: "localhost" }, () => {
     log(`serving on port ${port}`);
   });
