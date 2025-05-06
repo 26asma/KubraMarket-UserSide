@@ -63,11 +63,13 @@
 //   });
   
 // })();
-
 import express from "express";
-import path from "path";
 import { registerRoutes } from "./routes.js";
 import { setupVite, log } from "./vite.js";
+import path from "path";
+
+// To get the directory name in ES Modules, use `import.meta.url`
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const app = express();
 app.use(express.json());
@@ -117,7 +119,7 @@ app.use((req, res, next) => {
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
-    // Serve static files from the React app build folder (client/build)
+    // Use import.meta.url to get the directory name
     const buildPath = path.join(__dirname, "../client/build");
 
     // Serve static files (CSS, JS, images, etc.)
@@ -134,3 +136,5 @@ app.use((req, res, next) => {
     log(`serving on port ${port}`);
   });
 })();
+
+
