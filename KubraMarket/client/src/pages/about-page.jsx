@@ -1,7 +1,7 @@
 
 import React from 'react';
-import Header from "@/components/shop/Header";
-import Footer from "@/components/shop/Footer";
+import Header from '../components/shop/Header';
+import Footer from '../components/shop/Footer';
 
 export default function AboutPage() {
   return (
