@@ -1,18 +1,21 @@
 #!/bin/bash
 
-echo "📦 Installing client dependencies..."
+# Navigate to the client folder
 cd client
+
+# Install dependencies for the React app
 npm install
 
-echo "🔨 Building Vite frontend..."
+# Build the React app for production
 npm run build
 
-echo "📁 Moving frontend build to server/public..."
-rm -rf ../server/public
-cp -r dist ../server/public
+# Return to the root folder (back to KubraMarket)
+cd ..
 
-echo "📦 Installing server dependencies..."
-cd ../server
+# Install dependencies for the backend (server)
 npm install
 
-echo "✅ Build finished successfully"
+# You can add additional build steps if needed (e.g., compiling server-side code)
+# e.g., if you are using typescript for server-side code: tsc --build
+
+echo "Build process completed successfully."
