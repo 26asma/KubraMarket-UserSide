@@ -56,7 +56,7 @@ export default function Header() {
             </div>
             <div className="hidden md:flex space-x-4 text-sm">
               {user ? (
-                <Link to="/account" className="hover:text-light transition">My Account</Link>
+                <Link to="/account-page" className="hover:text-light transition">My Account</Link>
               ) : (
                 <>
                   <Link to="/auth" className="hover:text-light transition">Login</Link>

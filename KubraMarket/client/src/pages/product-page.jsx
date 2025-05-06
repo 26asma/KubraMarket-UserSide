@@ -9,7 +9,7 @@ import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { Product } from "@shared/schema";
 import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
+import { Heart, Star, StarHalf, Check, Truck, RotateCcw, Plus, Minus, ShoppingCart } from "lucide-react";
 
 export default function ProductPage() {
   const { id } = useParams();
@@ -20,12 +20,16 @@ export default function ProductPage() {
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   
-  const { data: product, isLoading } = useQuery<Product>({
+  const { data: product, isLoading } = useQuery({
     queryKey: [`/api/products/${id}`],
+    retry: 2,
+    staleTime: 60000,
   });
   
   const { data: relatedProducts, isLoading: relatedLoading } = useQuery({
     queryKey: [`/api/products/${id}/related`],
+    enabled: !!product,
+    staleTime: 60000,
   });
   
   const handleAddToCart = () => {
@@ -146,7 +150,14 @@ export default function ProductPage() {
                     {[...Array(5)].map((_, i) => {
                       const rating = parseFloat(String(product.rating));
                       return (
-                        <i key={i} className={`bi ${i < Math.floor(rating) ? 'bi-star-fill' : i < rating ? 'bi-star-half' : 'bi-star'}`}></i>
+                        <span key={i} className="flex items-center justify-center">
+                          {i < Math.floor(rating) ? 
+                            <Star className="h-4 w-4 fill-amber-400" /> : 
+                            i < rating ? 
+                              <StarHalf className="h-4 w-4 fill-amber-400" /> : 
+                              <Star className="h-4 w-4" />
+                          }
+                        </span>
                       );
                     })}
                   </div>
@@ -166,7 +177,7 @@ export default function ProductPage() {
                       </>
                     )}
                   </div>
-                  <p className="text-green-600 text-sm mb-2"><i className="bi bi-check-circle-fill mr-1"></i> In Stock</p>
+                  <p className="text-green-600 text-sm mb-2 flex items-center"><Check className="h-4 w-4 mr-1" /> In Stock</p>
                 </div>
                 
                 <div className="mb-6">
@@ -176,11 +187,11 @@ export default function ProductPage() {
                   
                   <div className="flex items-center space-x-4 mb-4">
                     <div className="flex items-center">
-                      <i className="bi bi-truck text-gray-500 mr-2"></i>
+                      <Truck className="h-4 w-4 text-gray-500 mr-2" />
                       <span className="text-sm">Free Shipping</span>
                     </div>
                     <div className="flex items-center">
-                      <i className="bi bi-arrow-return-left text-gray-500 mr-2"></i>
+                      <RotateCcw className="h-4 w-4 text-gray-500 mr-2" />
                       <span className="text-sm">30-Day Returns</span>
                     </div>
                   </div>
@@ -213,7 +224,7 @@ export default function ProductPage() {
                         onClick={() => setSelectedColor(color)}
                         title={colorNames[color]}
                       >
-                        {selectedColor === color && <i className="bi bi-check text-white"></i>}
+                        {selectedColor === color && <Check className="h-4 w-4 text-white" />}
                       </button>
                     ))}
                   </div>
@@ -227,7 +238,7 @@ export default function ProductPage() {
                       className="w-10 h-10 bg-light rounded-l-lg flex items-center justify-center text-primary hover:bg-gray-200 transition"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     >
-                      <i className="bi bi-dash"></i>
+                      <Minus className="h-4 w-4" />
                     </button>
                     <input 
                       type="number" 
@@ -240,7 +251,7 @@ export default function ProductPage() {
                       className="w-10 h-10 bg-light rounded-r-lg flex items-center justify-center text-primary hover:bg-gray-200 transition"
                       onClick={() => setQuantity(quantity + 1)}
                     >
-                      <i className="bi bi-plus"></i>
+                      <Plus className="h-4 w-4" />
                     </button>
                   </div>
                 </div>
@@ -251,7 +262,7 @@ export default function ProductPage() {
                     className="bg-primary text-white py-3 px-8 rounded-full font-medium hover:bg-opacity-90 transition flex-grow sm:flex-grow-0"
                     onClick={handleAddToCart}
                   >
-                    <i className="bi bi-cart-plus mr-2"></i> Add to Cart
+                    <ShoppingCart className="h-5 w-5 mr-2" /> Add to Cart
                   </Button>
                   <Button 
                     variant="outlineRound"

@@ -1,12 +1,12 @@
-import { db } from "./index";
-import * as schema from "@shared/schema";
+import { db } from "./index.js";
+import * as schema from "../shared/schema.js";
 import { eq } from "drizzle-orm";
-
+import { products, shops } from "../shared/schema.js";
 const SHOPS = [
   {
     name: "THAIBAH ENTERPRISES",
     description: "Crockery, Hajj-Umrah Kits, Dubai Abayas",
-    image: "https://images.unsplash.com/photo-1589578228447-e1a4e481c6c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
+    image: "https://images.unsplash.com/photo-1571498521264-5fcaa7f8edf4?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     rating: 4.8,
     reviewCount: 124,
     productCount: 52
@@ -14,7 +14,7 @@ const SHOPS = [
   {
     name: "MINHA ZAINAB ENTERPRISES",
     description: "Home Utilities",
-    image: "https://images.unsplash.com/photo-1584473457409-75a4e9bb2c1f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
+    image: "https://images.unsplash.com/photo-1617784625140-515e220ba148?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     rating: 4.6,
     reviewCount: 98,
     productCount: 38
@@ -22,7 +22,7 @@ const SHOPS = [
   {
     name: "HAYA BOUTIQUE",
     description: "Bhurqa, Hijab, Slippers",
-    image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
+    image: "https://images.unsplash.com/photo-1585728748176-455ac5eed962?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     rating: 4.9,
     reviewCount: 156,
     productCount: 64
@@ -38,7 +38,7 @@ const SHOPS = [
   {
     name: "TODLERRY",
     description: "Kids Fashion, Clothing, Accessories, Baby Care",
-    image: "https://images.unsplash.com/photo-1626784215021-2f4e776a01c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
+    image: "https://images.unsplash.com/photo-1566454544259-f4b94c3d758c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     rating: 4.8,
     reviewCount: 187,
     productCount: 76
@@ -54,7 +54,7 @@ const SHOPS = [
   {
     name: "AL-AIMAN CREATION",
     description: "Packing Materials, Traditional Food",
-    image: "https://images.unsplash.com/photo-1604719312566-8912e9c8a47a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
+    image: "https://images.unsplash.com/photo-1557471311-da136cd4fb86?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80",
     rating: 4.5,
     reviewCount: 89,
     productCount: 42
@@ -86,14 +86,13 @@ const CATEGORIES = [
   { name: "Accessories", slug: "accessories" }
 ];
 
-// Products data based on images from the design reference
 const PRODUCTS = [
   {
     name: "Traditional Black Abaya",
     description: "Elegant traditional abaya made from premium quality fabric. Perfect for daily wear or special occasions. Light, comfortable, and stylish.",
     price: 89.99,
     originalPrice: 110.00,
-    image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
+    image: "https://images.unsplash.com/photo-1728487235101-664d87965931?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
     category: "hijabAbayas",
     shopId: 1, // Will be replaced with actual IDs
     rating: 4.8,
@@ -138,7 +137,7 @@ const PRODUCTS = [
     description: "Comfortable kids cotton summer dress, perfect for warm weather. Made from soft, breathable fabric that's gentle on your child's skin.",
     price: 32.99,
     originalPrice: 38.50,
-    image: "https://images.unsplash.com/photo-1627483297886-49710ae1fc22?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
+    image: "https://images.unsplash.com/photo-1560278150-074db6a8da4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
     category: "kidsFashion",
     shopId: 5, // Will be replaced with actual IDs
     rating: 4.7,
@@ -168,7 +167,7 @@ const PRODUCTS = [
     description: "Contemporary wall art set to enhance any living space. These pieces add character and style to your home décor.",
     price: 79.99,
     originalPrice: null,
-    image: "https://images.unsplash.com/photo-1605883705077-8d3d848f187b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
+    image: "https://plus.unsplash.com/premium_photo-1705262413765-5fe7a310d4e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
     category: "homeDecor",
     shopId: 6, // Will be replaced with actual IDs
     rating: 4.5,
@@ -183,7 +182,7 @@ const PRODUCTS = [
     description: "Beautiful handcrafted ceramic plates for your dining table. Each piece is unique with intricate designs and patterns.",
     price: 65.99,
     originalPrice: 89.99,
-    image: "https://images.unsplash.com/photo-1578258789061-794d4c8c5756?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
+    image: "https://plus.unsplash.com/premium_photo-1681412205520-49c7f9b8b67f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
     category: "crockery",
     shopId: 1, // Will be replaced with actual IDs
     rating: 4.7,
@@ -207,51 +206,92 @@ const PRODUCTS = [
     isBestseller: false,
     discount: 23,
     stock: 28
+  },
+  {
+    name: "Mini Home Clock with Vintage Look",
+    description: "Stylish home clock with vintage finish for your living room or bedroom.",
+    price: 22.50,
+    originalPrice: null,
+    image: "https://images.unsplash.com/photo-1415604934674-561df9abf539?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
+    category: "homeDecor",
+    shopId: 6,
+    rating: 4.4,
+    reviewCount: 12,
+    isNew: true,
+    isBestseller: false,
+    discount: 0,
+    stock: 18
+  },
+  {
+    name: "Leather Wrist Watch for Women",
+    description: "Stylish and sleek leather-strap wristwatch with minimalist design.",
+    price: 64.50,
+    originalPrice: 80.00,
+    image: "https://images.unsplash.com/photo-1706677861871-56b7383454ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
+    category: "accessories",
+    shopId: 2,
+    rating: 4.6,
+    reviewCount: 31,
+    isNew: false,
+    isBestseller: false,
+    discount: 19,
+    stock: 29
+  },
+{
+    name: "Decorative Cushion Set",
+    description: "Set of 3 stylish cushions with embroidered designs for sofas and beds.",
+    price: 48.99,
+    originalPrice: null,
+    image: "https://plus.unsplash.com/premium_photo-1670359039073-90ded4b26501?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=600&q=80",
+    category: "homeDecor",
+    shopId: 6,
+    rating: 4.5,
+    reviewCount: 34,
+    isNew: false,
+    isBestseller: false,
+    discount: 0,
+    stock: 28
   }
 ];
 
 async function seed() {
   try {
-    console.log("🌱 Starting database seeding...");
+    console.log("🌱 Starting full database reset and seeding...");
 
-    // Check if shops already exist to avoid duplicates
-    const existingShops = await db.select().from(schema.shops);
-    if (existingShops.length === 0) {
-      console.log("Seeding shops...");
-      const insertedShops = await db.insert(schema.shops).values(SHOPS).returning();
-      console.log(`✅ ${insertedShops.length} shops inserted successfully`);
-      
-      // Create a map of shop names to IDs for products reference
-      const shopMap = new Map(insertedShops.map(shop => [shop.name, shop.id]));
-      
-      // Seed categories
-      console.log("Seeding categories...");
-      await db.insert(schema.categories).values(CATEGORIES).returning();
-      console.log(`✅ ${CATEGORIES.length} categories inserted successfully`);
-      
-      // Update product shopIds with real IDs from the database
-      const productsWithShopIds = PRODUCTS.map(product => {
-        // Find the shop by name (index + 1 is used as placeholder in our initial data)
-        const shopName = SHOPS[product.shopId - 1].name;
-        const realShopId = shopMap.get(shopName);
-        
-        return {
-          ...product,
-          shopId: realShopId
-        };
-      });
-      
-      console.log("Seeding products...");
-      const insertedProducts = await db.insert(schema.products).values(productsWithShopIds).returning();
-      console.log(`✅ ${insertedProducts.length} products inserted successfully`);
-    } else {
-      console.log("✅ Database already seeded. Skipping...");
-    }
-    
+    // Step 1: Delete in correct order to avoid FK issues
+    await db.delete(products).execute(); // products depends on shops
+    await db.delete(shops).execute();
+    console.log("🧹 Existing data deleted");
+
+    // Step 2: Insert new shops
+    const insertedShops = await db.insert(schema.shops).values(SHOPS).returning();
+    console.log(`🏪 ${insertedShops.length} shops inserted`);
+
+    // Step 3: Build shop name-to-ID map
+    const shopMap = new Map(insertedShops.map(shop => [shop.name, shop.id]));
+
+ 
+
+    // Step 5: Prepare products with correct shop IDs
+    const productsWithShopIds = PRODUCTS.map(product => {
+      const shopName = SHOPS[product.shopId - 1].name;
+      const realShopId = shopMap.get(shopName);
+
+      return {
+        ...product,
+        shopId: realShopId
+      };
+    });
+
+    // Step 6: Insert products
+    const insertedProducts = await db.insert(schema.products).values(productsWithShopIds).returning();
+    console.log(`🛍️ ${insertedProducts.length} products inserted`);
+
     console.log("🎉 Database seeding completed!");
   } catch (error) {
-    console.error("Error seeding database:", error);
+    console.error("❌ Error during seeding:", error);
   }
 }
 
 seed();
+

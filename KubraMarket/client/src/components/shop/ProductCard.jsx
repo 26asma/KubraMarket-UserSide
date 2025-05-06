@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { Product } from "@shared/schema";
-import { Heart } from "lucide-react";
+import { Heart, Star, Eye, ShoppingCart } from "lucide-react";
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
@@ -46,7 +46,7 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <Link to={`/product/${product.id}`}>
+    <Link href={`/product/${product.id}`}>
       <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:shadow-lg hover:-translate-y-1">
         <div className="relative">
           <img 
@@ -66,7 +66,7 @@ export default function ProductCard({ product }) {
               className="bg-white p-2 rounded-full shadow-md hover:bg-primary hover:text-white transition"
               onClick={handleQuickView}
             >
-              <i className="bi bi-eye"></i>
+              <Eye className="h-4 w-4" />
             </button>
           </div>
           {product.isNew && (
@@ -91,7 +91,7 @@ export default function ProductCard({ product }) {
           </div>
           <h3 className="font-medium mb-1">{product.name}</h3>
           <div className="flex items-center mb-3">
-            <span className="text-amber-400 mr-1 text-sm"><i className="bi bi-star-fill"></i></span>
+            <Star className="h-4 w-4 text-amber-400 fill-amber-400 mr-1" />
             <span className="text-xs font-medium">{product.rating}</span>
             <span className="text-gray-400 text-xs ml-1">({product.reviewCount})</span>
           </div>
@@ -106,7 +106,7 @@ export default function ProductCard({ product }) {
               className="bg-light hover:bg-primary hover:text-white text-primary p-2 rounded-full transition"
               onClick={handleAddToCart}
             >
-              <i className="bi bi-cart-plus"></i>
+              <ShoppingCart className="h-4 w-4" />
             </button>
           </div>
         </div>

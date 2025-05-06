@@ -47,7 +47,7 @@ export default function CheckoutPage() {
   const { toast } = useToast();
   
   // Initialize form with default values
-  const form = useForm<CheckoutFormValues>({
+  const form = useForm({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
       firstName: "",

@@ -18,11 +18,13 @@ import { AuthProvider } from "@/hooks/use-auth";
 import { CartProvider } from "@/hooks/use-cart";
 import { WishlistProvider } from "@/hooks/use-wishlist";
 import { ProtectedRoute } from "./lib/protected-route";
+import AboutPage from "@/pages/about-page";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={HomePage} />
+      <Route path="/about" component={AboutPage} />
       <Route path="/shop/:id" component={ShopPage} />
       <Route path="/product/:id" component={ProductPage} />
       <Route path="/auth" component={AuthPage} />

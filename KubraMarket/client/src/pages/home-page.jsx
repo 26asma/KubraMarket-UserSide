@@ -75,7 +75,7 @@ export default function HomePage() {
             </div>
             
             <div className="text-center mt-10">
-              <a href="#" className="inline-flex items-center text-primary font-medium hover:underline">
+              <a href="/shops" className="inline-flex items-center text-primary font-medium hover:underline">
                 View All Shops <i className="bi bi-arrow-right ml-2"></i>
               </a>
             </div>
@@ -187,7 +187,7 @@ export default function HomePage() {
             </div>
             
             <div className="text-center mt-10">
-              <a href="#" className="inline-block bg-primary text-white py-3 px-6 rounded-full font-medium hover:bg-opacity-90 transition">
+              <a href="/products" className="inline-block bg-primary text-white py-3 px-6 rounded-full font-medium hover:bg-opacity-90 transition">
                 View All Products
               </a>
             </div>
