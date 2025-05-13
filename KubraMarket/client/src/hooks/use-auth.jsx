@@ -10,8 +10,15 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const queryClient = useQueryClient();
-  const { data: user } = useQuery({ queryKey: ["/api/user"], queryFn: () => apiRequest("GET", "/api/user")});
-
+  // const { data: user } = useQuery({ queryKey: ["/api/user"], queryFn: () => apiRequest("GET", "/api/user")});
+  const { data: user } = useQuery({ 
+    queryKey: ["/api/user"], 
+    queryFn: async () => {
+      const response = await apiRequest("GET", "/api/user");
+      return await response.json(); // Parse JSON here
+    }
+  });
+  
   const loginMutation = useMutation({
     mutationFn: (credentials) => apiRequest("POST", "/api/login", credentials),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["/api/user"] }),
@@ -38,7 +45,10 @@ export function AuthProvider({ children }) {
   );
 }
 
-//Helper function - needed from original code
+
+// Helper function - needed from original code
+
+
 const getQueryFn = ({ on401 = "throw" }) => async (key) => {
   try {
     const res = await apiRequest("GET", key);

@@ -58,13 +58,62 @@ export const insertProductSchema = createInsertSchema(products, {
 });
 
 
+// export const orders = pgTable("orders", {
+//   id: serial("id").primaryKey(),
+//   userId: integer("user_id").references(() => users.id).notNull(),
+//   items: jsonb("items").notNull(),
+//   total: decimal("total_price", { precision: 10, scale: 2 }).notNull(),
+//   status: text("status").notNull().default("pending"),
+//   createdAt: timestamp("created_at").defaultNow().notNull()
+// });
+
+// export const orders = pgTable("orders", {
+//   id: serial("id").primaryKey(),
+//   userId: integer("user_id").references(() => users.id).notNull(),
+//   firstName: text("first_name").notNull(),  // Add first_name field
+//   lastName: text("last_name").notNull(),    // Add last_name field
+//   email: text("email").notNull(),           // Add email field
+//   phone: text("phone").notNull(),           // Add phone field if necessary
+//   address: text("address").notNull(),       // Add address field if necessary
+//   city: text("city").notNull(),             // Add city field if necessary
+//   state: text("state").notNull(),           // Add state field if necessary
+//   zipCode: text("zip_code").notNull(),      // Add zip_code field if necessary
+//   country: text("country").notNull(),       // Add country field if necessary
+//   items: jsonb("items").notNull(),
+//   total: decimal("total_price", { precision: 10, scale: 2 }).notNull(),
+//   status: text("status").notNull().default("pending"),
+//   createdAt: timestamp("created_at").defaultNow().notNull()
+// });
+
+
+
 export const orders = pgTable("orders", {
   id: serial("id").primaryKey(),
+
   userId: integer("user_id").references(() => users.id).notNull(),
-  items: jsonb("items").notNull(),
-  total: decimal("total", { precision: 10, scale: 2 }).notNull(),
+
+  first_name: text("first_name").notNull(),
+  last_name: text("last_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+
+  address: text("address").notNull(),
+  city: text("city").notNull(),
+  state: text("state").notNull(),
+zip_code: text("zip_code").notNull(),
+  country: text("country").notNull(),
+
+ payment_method: text("payment_method").notNull(), // new field
+  notes: text("notes"), // optional
+
+  items: jsonb("items").notNull(), // cart items
+
+  subtotal: decimal("subtotal", { precision: 10, scale: 2 }).notNull(),
+  shippingCost: decimal("shipping_cost", { precision: 10, scale: 2 }).notNull(),
+  total_Price: decimal("total_price", { precision: 10, scale: 2 }).notNull(),
+
   status: text("status").notNull().default("pending"),
-  createdAt: timestamp("created_at").defaultNow().notNull()
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const productsRelations = relations(products, ({ one }) => ({

@@ -62,28 +62,26 @@ export default function ProductCard({ product }) {
             >
               <Heart className={`w-4 h-4 ${inWishlist ? 'fill-white' : ''}`} />
             </button>
-            <button 
+            {/* <button 
               className="bg-white p-2 rounded-full shadow-md hover:bg-primary hover:text-white transition"
               onClick={handleQuickView}
             >
               <Eye className="h-4 w-4" />
-            </button>
+            </button> */}
           </div>
-          {product.isNew && (
-            <div className="absolute top-3 left-3">
-              <span className="bg-primary text-white text-xs py-1 px-2 rounded">New</span>
-            </div>
-          )}
-          {product.discount && product.discount > 0 && (
-            <div className="absolute top-3 left-3">
-              <span className="bg-warning text-secondary text-xs py-1 px-2 rounded">{product.discount}% Off</span>
-            </div>
-          )}
-          {product.isBestseller && (
-            <div className="absolute top-3 left-3">
-              <span className="bg-success text-white text-xs py-1 px-2 rounded">Bestseller</span>
-            </div>
-          )}
+     
+          <div className="absolute top-3 left-3 flex flex-col gap-1 min-h-[90px]">
+  {product.isNew && (
+    <span className="bg-primary text-white text-xs py-1 px-2 rounded text-center">New</span>
+  )}
+  {product.isBestseller && (
+    <span className="bg-primary text-white text-xs py-1 px-2 rounded text-center">Bestseller</span>
+  )}
+  {product.discount > 0 && (
+    <span className="bg-[#4b4b4b] text-white  text-xs py-1 px-2 rounded text-center">{product.discount}% Off</span>
+  )}
+</div>
+
         </div>
         <div className="p-4">
           <div className="flex items-center mb-1">

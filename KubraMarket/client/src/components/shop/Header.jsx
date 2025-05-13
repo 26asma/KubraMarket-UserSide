@@ -127,10 +127,10 @@ export default function Header() {
           <div className="container mx-auto px-4">
             <ul className="flex justify-center space-x-8 py-3">
               <li><Link to="/" className={`text-secondary hover:text-primary font-medium transition ${location === '/' ? 'text-primary' : ''}`}>Home</Link></li>
-              <li><Link to="/#shops" className="text-secondary hover:text-primary font-medium transition">All Shops</Link></li>
-              <li><Link to="/shop/new-arrivals" className="text-secondary hover:text-primary font-medium transition">New Arrivals</Link></li>
-              <li><Link to="/shop/best-sellers" className="text-secondary hover:text-primary font-medium transition">Best Sellers</Link></li>
-              <li><Link to="/shop/deals" className="text-secondary hover:text-primary font-medium transition">Deals</Link></li>
+              <li><Link to="/shops" className="text-secondary hover:text-primary font-medium transition">All Shops</Link></li>
+              <li><Link to="/products?filter=new" className="text-secondary hover:text-primary font-medium transition">New Arrivals</Link></li>
+              <li><Link to="/products?filter=bestseller" className="text-secondary hover:text-primary font-medium transition">Best Sellers</Link></li>
+              <li><Link to="/products?filter=deals" className="text-secondary hover:text-primary font-medium transition">Deals</Link></li>
               <li><Link to="/about" className="text-secondary hover:text-primary font-medium transition">About Us</Link></li>
             </ul>
           </div>

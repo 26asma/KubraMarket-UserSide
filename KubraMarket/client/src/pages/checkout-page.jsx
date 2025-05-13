@@ -24,16 +24,16 @@ import { apiRequest } from "@/lib/queryClient";
 
 // Form schema
 const checkoutSchema = z.object({
-  firstName: z.string().min(2, "First name is required"),
-  lastName: z.string().min(2, "Last name is required"),
+  first_name: z.string().min(2, "First name is required"),
+  last_name: z.string().min(2, "Last name is required"),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(10, "Phone number is required"),
   address: z.string().min(5, "Address is required"),
   city: z.string().min(2, "City is required"),
   state: z.string().min(2, "State is required"),
-  zipCode: z.string().min(5, "Zip code is required"),
+  zip_code: z.string().min(5, "Zip code is required"),
   country: z.string().min(2, "Country is required"),
-  paymentMethod: z.enum(["creditCard", "paypal", "bankTransfer"]),
+  payment_method: z.enum(["creditCard", "paypal", "bankTransfer"]),
   notes: z.string().optional(),
 });
 
@@ -45,30 +45,30 @@ export default function CheckoutPage() {
   const { cartItems, subtotal, shippingCost, totalPrice, clearCart } = useCart();
   const { user } = useAuth();
   const { toast } = useToast();
-  
-  // Initialize form with default values
+
+  // // Initialize form with default values
   const form = useForm({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       email: user?.username ? `${user.username}@example.com` : "",
       phone: "",
       address: "",
       city: "",
       state: "",
-      zipCode: "",
+      zip_code: "",
       country: "",
-      paymentMethod: "creditCard",
+      payment_method: "creditCard",
       notes: "",
     },
   });
-  
+
   if (cartItems.length === 0) {
     navigate("/cart");
     return null;
   }
-  
+
   const onSubmit = async (data) => {
     setIsProcessing(true);
     
@@ -76,22 +76,26 @@ export default function CheckoutPage() {
       // Create order
       const order = {
         ...data,
+        
         items: cartItems,
         subtotal,
         shippingCost,
-        totalPrice,
-        userId: user?.id,
+        total_Price: totalPrice,
+        user_id: user?.id,
       };
       
-      // Send order to API
-      const response = await apiRequest("POST", "/api/orders", order);
       
+      
+      // Send order to API
+     
+      const response = await apiRequest("POST", "/api/orders", order);
+
       if (response.ok) {
         toast({
           title: "Order placed successfully!",
           description: "Thank you for your purchase.",
         });
-        
+
         // Clear cart and redirect to success page
         clearCart();
         navigate("/order-success");
@@ -107,27 +111,27 @@ export default function CheckoutPage() {
       setIsProcessing(false);
     }
   };
-  
+
   return (
     <>
       <Header />
-      
+
       <main className="py-12 bg-light">
         <div className="container mx-auto px-4">
           <h1 className="font-poppins font-bold text-3xl mb-6">Checkout</h1>
-          
+
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Checkout Form */}
             <div className="w-full lg:w-8/12">
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="font-bold text-xl mb-6">Shipping Information</h2>
-                
+
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <FormField
                         control={form.control}
-                        name="firstName"
+                        name="first_name"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>First Name</FormLabel>
@@ -138,10 +142,10 @@ export default function CheckoutPage() {
                           </FormItem>
                         )}
                       />
-                      
+
                       <FormField
                         control={form.control}
-                        name="lastName"
+                        name="last_name"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Last Name</FormLabel>
@@ -153,7 +157,7 @@ export default function CheckoutPage() {
                         )}
                       />
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <FormField
                         control={form.control}
@@ -168,7 +172,7 @@ export default function CheckoutPage() {
                           </FormItem>
                         )}
                       />
-                      
+
                       <FormField
                         control={form.control}
                         name="phone"
@@ -183,7 +187,7 @@ export default function CheckoutPage() {
                         )}
                       />
                     </div>
-                    
+
                     <FormField
                       control={form.control}
                       name="address"
@@ -197,7 +201,7 @@ export default function CheckoutPage() {
                         </FormItem>
                       )}
                     />
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <FormField
                         control={form.control}
@@ -212,7 +216,7 @@ export default function CheckoutPage() {
                           </FormItem>
                         )}
                       />
-                      
+
                       <FormField
                         control={form.control}
                         name="state"
@@ -226,10 +230,10 @@ export default function CheckoutPage() {
                           </FormItem>
                         )}
                       />
-                      
+
                       <FormField
                         control={form.control}
-                        name="zipCode"
+                        name="zip_code"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Zip/Postal Code</FormLabel>
@@ -241,7 +245,7 @@ export default function CheckoutPage() {
                         )}
                       />
                     </div>
-                    
+
                     <FormField
                       control={form.control}
                       name="country"
@@ -255,13 +259,13 @@ export default function CheckoutPage() {
                         </FormItem>
                       )}
                     />
-                    
+
                     <div className="border-t pt-6 mt-8">
                       <h2 className="font-bold text-xl mb-6">Payment Method</h2>
-                      
+
                       <FormField
                         control={form.control}
-                        name="paymentMethod"
+                        name="payment_method"
                         render={({ field }) => (
                           <FormItem>
                             <FormControl>
@@ -295,7 +299,7 @@ export default function CheckoutPage() {
                         )}
                       />
                     </div>
-                    
+
                     <FormField
                       control={form.control}
                       name="notes"
@@ -312,7 +316,7 @@ export default function CheckoutPage() {
                         </FormItem>
                       )}
                     />
-                    
+
                     <Button 
                       type="submit" 
                       variant="round"
@@ -332,12 +336,12 @@ export default function CheckoutPage() {
                 </Form>
               </div>
             </div>
-            
+
             {/* Order Summary */}
             <div className="w-full lg:w-4/12">
               <div className="bg-white rounded-lg shadow-md p-6">
                 <h2 className="font-bold text-xl mb-4">Order Summary</h2>
-                
+
                 <div className="divide-y">
                   {cartItems.map((item) => (
                     <div key={item.id} className="py-3 flex gap-3">
@@ -359,7 +363,7 @@ export default function CheckoutPage() {
                     </div>
                   ))}
                 </div>
-                
+
                 <div className="space-y-3 mt-6 pt-6 border-t">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
@@ -379,8 +383,11 @@ export default function CheckoutPage() {
           </div>
         </div>
       </main>
-      
+
       <Footer />
     </>
   );
 }
+
+
+

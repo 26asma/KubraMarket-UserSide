@@ -151,7 +151,7 @@ export async function registerRoutes(app) {
         ...req.body,
         userId: req.user?.id || null
       };
-      
+      console.log("Creating order:", orderData);
       const order = await storage.createOrder(orderData);
       res.status(201).json(order);
     } catch (error) {
@@ -168,6 +168,7 @@ export async function registerRoutes(app) {
       
       const orders = await storage.getOrdersByUserId(req.user.id);
       res.json(orders);
+      console.log("Fetched orders:", orders);
     } catch (error) {
       console.error("Error fetching orders:", error);
       res.status(500).json({ message: "Failed to fetch orders" });
